@@ -1,23 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
+import GameBoard from './components/GameBoard/GameBoard';
+import Sidebar from './components/Sidebar/Sidebar';
+import './App.scss';
 
 function App() {
+  const [started, setStarted] = useState(false);
+
+  // Dummy values for now
+  const score = 0;
+  const pairsLeft = 4;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className='app-header'>
+        <h1>Memory Game</h1>
       </header>
+      {!started ? (
+        <button
+          className="start-btn"
+          onClick={() => setStarted(true)}
+        >
+          Start
+        </button>
+      ) : (
+        <div className="game-layout">
+          <Sidebar score={score} pairsLeft={pairsLeft} />
+          <GameBoard />
+        </div>
+      )}
     </div>
   );
 }
