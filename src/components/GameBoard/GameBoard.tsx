@@ -1,13 +1,32 @@
 import React from 'react';
 import './GameBoard.scss';
+import Card from '../Card/Card';
+import { UseMemoryGame } from '../../GameLogic/useMemoryGame';
 
-const GameBoard: React.FC = () => {
+type GameBoardProps = Pick<UseMemoryGame, 'cards' | 'handleCardClick'>;
+
+const GameBoard: React.FC<GameBoardProps> = ({ cards, handleCardClick }) => {
+
+    const onCardClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+        const cardId = e.currentTarget.getAttribute('data-card');
+        handleCardClick(cardId || '');
+    };
+
     return (
         <div className="game-board">
-            {/* cards should be rendered here */}
-            <h1>Game Board</h1>
+            <div className="card-grid">
+                {cards.map((card, idx) => (
+                    <Card
+                        imageId={card.imageId}
+                        uniqueId={card.uniqueId}
+                        flipped={card.flipped}
+                        onClick={onCardClick}
+                        key={idx}
+                    />
+                ))}
+            </div>
         </div>
     );
-}
+};
 
 export default GameBoard;

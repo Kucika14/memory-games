@@ -1,12 +1,11 @@
 import React from 'react';
 import './Sidebar.scss';
+import { UseMemoryGame, useMemoryGame } from '../../GameLogic/useMemoryGame';
 
-type SidebarProps = {
-    score: number;
-    pairsLeft: number;
-};
+type SidebarProps = Pick<UseMemoryGame, 'score' | 'pairsLeft'>;
 
 const Sidebar: React.FC<SidebarProps> = ({ score, pairsLeft }) => {
+
     return (
         <div className="sidebar">
             <h3>Score: {score}</h3>

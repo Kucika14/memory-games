@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import GameBoard from './components/GameBoard/GameBoard';
 import Sidebar from './components/Sidebar/Sidebar';
+import { useMemoryGame } from './GameLogic/useMemoryGame';
 import './App.scss';
 
 function App() {
+  const { pairsLeft, score, resetGame, isWin, ...restProps } = useMemoryGame();
+
   const [started, setStarted] = useState(false);
 
-  // Dummy values for now
-  const score = 0;
-  const pairsLeft = 4;
 
   return (
     <div className="App">
@@ -22,12 +22,20 @@ function App() {
         >
           Start
         </button>
-      ) : (
-        <div className="game-layout">
-          <Sidebar score={score} pairsLeft={pairsLeft} />
-          <GameBoard />
-        </div>
-      )}
+      ) : isWin ?
+        (
+          <div className="win-screen">
+            <h2>Congratulations! You won!</h2>
+            <p>Your score: {score}</p>
+            <button onClick={resetGame}>Play Again</button>
+          </div>
+        )
+        : (
+          <div className="game-layout">
+            <GameBoard {...restProps} />
+            <Sidebar score={score} pairsLeft={pairsLeft} />
+          </div>
+        )}
     </div>
   );
 }

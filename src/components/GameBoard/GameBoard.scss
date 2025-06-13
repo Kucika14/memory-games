@@ -10,4 +10,16 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 160px);
+        grid-template-rows: repeat(2, 200px);
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 16px;
+    }
+
+
 }
